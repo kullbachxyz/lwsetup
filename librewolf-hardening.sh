@@ -130,19 +130,19 @@ else
       .policies.ExtensionSettings = (.policies.ExtensionSettings // {}) |
       .policies.ExtensionSettings["jid1-BoFifL9Vbdl2zQ@jetpack"] = {
         "install_url": "https://addons.mozilla.org/firefox/downloads/latest/decentraleyes/latest.xpi",
-        "installation_mode": "force_installed"
+        "installation_mode": "normal_installed"
       } |
       .policies.ExtensionSettings["idcac-pub@guus.ninja"] = {
         "install_url": "https://addons.mozilla.org/firefox/downloads/latest/istilldontcareaboutcookies/latest.xpi",
-        "installation_mode": "force_installed"
+        "installation_mode": "normal_installed"
       } |
       .policies.ExtensionSettings["uBlock0@raymondhill.net"] = {
         "install_url": "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi",
-        "installation_mode": "force_installed"
+        "installation_mode": "normal_installed"
       } |
       .policies.ExtensionSettings["vim-vixen@i-beam.org"] = {
         "install_url": "https://addons.mozilla.org/firefox/downloads/latest/vim-vixen/latest.xpi",
-        "installation_mode": "force_installed"
+        "installation_mode": "normal_installed"
       }
     ' "$POLICY_FILE" | sudo tee "$POLICY_FILE.tmp" > /dev/null
 
