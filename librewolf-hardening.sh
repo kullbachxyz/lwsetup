@@ -5,6 +5,10 @@
 # - Append LARBS overrides and extra tweaks
 # - Enforce privacy extensions via policies.json
 
+# 
+# NOTE: Need to find replacement for VimVixen as it breakes some websites. Sadly it is unmaintanined currently...
+#
+
 # -------------------------------
 # Safety checks
 # -------------------------------
