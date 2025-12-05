@@ -5,10 +5,6 @@
 # - Append LARBS overrides and extra tweaks
 # - Enforce privacy extensions via policies.json
 
-# 
-# NOTE: Need to find replacement for VimVixen as it breakes some websites. Sadly it is unmaintanined currently...
-#
-
 # -------------------------------
 # Safety checks
 # -------------------------------
@@ -144,8 +140,8 @@ else
         "install_url": "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi",
         "installation_mode": "normal_installed"
       } |
-      .policies.ExtensionSettings["vim-vixen@i-beam.org"] = {
-        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/vim-vixen/latest.xpi",
+      .policies.ExtensionSettings["{d7742d87-e61d-4b78-b8a1-b469842139fa}"] = {
+        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/vimium-ff/latest.xpi",
         "installation_mode": "normal_installed"
       }
     ' "$POLICY_FILE" | sudo tee "$POLICY_FILE.tmp" > /dev/null
