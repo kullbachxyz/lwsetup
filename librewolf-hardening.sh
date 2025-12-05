@@ -95,6 +95,11 @@ user_pref("privacy.fingerprintingProtection.overrides", "+AllTargets,-CSSPrefers
 // Never show the bookmarks toolbar
 user_pref("browser.toolbars.bookmarks.visibility", "never");
 
+// Disable the previous session restore prompt
+user_pref("browser.sessionstore.resume_from_crash", true);
+user_pref("browser.sessionstore.restore_on_demand", false);
+user_pref("browser.sessionstore.restore_tabs_lazily", false);
+
 EOF
 
 echo "larbs.js overrides and extra tweaks appended to $PROFILE_PATH/user.js"
