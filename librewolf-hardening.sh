@@ -92,8 +92,6 @@ user_pref("privacy.fingerprintingProtection", true);
 user_pref("privacy.fingerprintingProtection.overrides", "+AllTargets,-CSSPrefersColorScheme");
 
 // ===== UI TWEAKS =====
-// Never show the bookmarks toolbar
-user_pref("browser.toolbars.bookmarks.visibility", "never");
 
 // Disable the previous session restore prompt
 user_pref("browser.sessionstore.resume_from_crash", true);
