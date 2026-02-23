@@ -43,8 +43,16 @@ PROFILES_DIR="$HOME/.librewolf"
 PROFILES_INI="$PROFILES_DIR/profiles.ini"
 
 if [[ ! -f "$PROFILES_INI" ]]; then
-  echo "profiles.ini not found at $PROFILES_INI" >&2
-  echo "Start LibreWolf once so it creates a profile, then rerun this script." >&2
+  log "No profiles.ini found — launching LibreWolf to initialise profile..."
+  librewolf --headless --no-remote 2>/dev/null &
+  lw_pid=$!
+  sleep 5
+  kill "$lw_pid" 2>/dev/null || true
+  wait "$lw_pid" 2>/dev/null || true
+fi
+
+if [[ ! -f "$PROFILES_INI" ]]; then
+  echo "profiles.ini still not found after profile init. Aborting." >&2
   exit 1
 fi
 
