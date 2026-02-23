@@ -43,12 +43,14 @@ PROFILES_DIR="$HOME/.librewolf"
 PROFILES_INI="$PROFILES_DIR/profiles.ini"
 
 if [[ ! -f "$PROFILES_INI" ]]; then
-  log "No profiles.ini found — launching LibreWolf to initialise profile..."
-  librewolf --headless --no-remote 2>/dev/null &
-  lw_pid=$!
-  sleep 5
-  kill "$lw_pid" 2>/dev/null || true
-  wait "$lw_pid" 2>/dev/null || true
+  log "No profiles.ini found — creating minimal default profile..."
+  mkdir -p "$PROFILES_DIR"
+  rand="$(od -An -N4 -tx1 /dev/urandom | tr -d ' \n')"
+  profile_rel="${rand}.default-default"
+  mkdir -p "$PROFILES_DIR/$profile_rel"
+  printf '[General]\nStartWithLastProfile=1\nVersion=2\n\n[Profile0]\nName=default-default\nIsRelative=1\nPath=%s\nDefault=1\n' \
+    "$profile_rel" > "$PROFILES_INI"
+  log "Created profile: $profile_rel"
 fi
 
 if [[ ! -f "$PROFILES_INI" ]]; then
