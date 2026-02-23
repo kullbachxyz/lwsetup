@@ -53,11 +53,6 @@ if [[ ! -f "$PROFILES_INI" ]]; then
   log "Created profile: $profile_rel"
 fi
 
-if [[ ! -f "$PROFILES_INI" ]]; then
-  echo "profiles.ini still not found after profile init. Aborting." >&2
-  exit 1
-fi
-
 PROFILE_REL="$(sed -n 's/^Path=\(.*\.default-default\)$/\1/p' "$PROFILES_INI" | head -n 1)"
 
 if [[ -z "$PROFILE_REL" ]]; then
@@ -125,17 +120,21 @@ log "user.js written to $PROFILE_PATH"
 # Clean stale prefs from prefs.js (arkenfox prefsCleaner)
 # -------------------------------
 
-log "Running arkenfox prefsCleaner to remove stale prefs..."
-CLEANER="$PROFILE_PATH/prefsCleaner.sh"
-if curl -fsSL "$PREFS_CLEANER_URL" -o "$CLEANER"; then
-  chmod +x "$CLEANER"
-  # prefsCleaner uses dirname $0 to locate prefs.js, so it must live in the profile dir
-  (cd "$PROFILE_PATH" && bash "$CLEANER" -s)
-  rm -f "$CLEANER"
-  log "prefsCleaner done."
+if [[ -f "$PROFILE_PATH/prefs.js" ]]; then
+  log "Running arkenfox prefsCleaner to remove stale prefs..."
+  CLEANER="$PROFILE_PATH/prefsCleaner.sh"
+  if curl -fsSL "$PREFS_CLEANER_URL" -o "$CLEANER"; then
+    chmod +x "$CLEANER"
+    # prefsCleaner uses dirname $0 to locate prefs.js, so it must live in the profile dir
+    (cd "$PROFILE_PATH" && bash "$CLEANER" -s)
+    rm -f "$CLEANER"
+    log "prefsCleaner done."
+  else
+    log "Warning: failed to download prefsCleaner.sh; skipping stale pref cleanup."
+    rm -f "$CLEANER"
+  fi
 else
-  log "Warning: failed to download prefsCleaner.sh; skipping stale pref cleanup."
-  rm -f "$CLEANER"
+  log "No prefs.js found (fresh profile) — skipping prefsCleaner."
 fi
 
 # -------------------------------
