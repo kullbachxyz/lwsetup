@@ -1,39 +1,24 @@
-# LibreWolf Hardening Script
+# librewolf-hardening
 
-Simple script that:
+Applies a privacy-focused configuration to the default LibreWolf profile.
 
--   Applies **arkenfox user.js** to LibreWolf
--   Appends **LARBS overrides** and dark mode tweaks
--   Forces install of privacy extensions via `policies.json`
--   Locks `resistFingerprinting=false` in `librewolf.cfg` (so dark mode works)
--   Backs up everything it overwrites
+- [arkenfox user.js](https://github.com/arkenfox/user.js) as base, with [LARBS overrides](https://github.com/LukeSmithxyz/voidrice) appended
+- Dark mode via `resistFingerprinting=false` locked in `librewolf.cfg`
+- Privacy extensions force-installed via `policies.json`:
+  - [uBlock Origin](https://addons.mozilla.org/firefox/addon/ublock-origin/)
+  - [Decentraleyes](https://addons.mozilla.org/firefox/addon/decentraleyes/)
+  - [I Still Don't Care About Cookies](https://addons.mozilla.org/firefox/addon/istilldontcareaboutcookies/)
+  - [Vimium](https://addons.mozilla.org/firefox/addon/vimium-ff/)
 
 ## Usage
 
-``` bash
-chmod +x librewolf-hardening.sh
+```sh
 ./librewolf-hardening.sh
 ```
 
-Requires `jq`.
-
-## What it does
-
--   Kills any running LibreWolf instance before applying changes
--   Rebuilds `user.js` with arkenfox + LARBS overrides
--   Patches `librewolf.cfg` with `lockPref` so LibreWolf's own defaults can't re-enable `resistFingerprinting`
--   Updates `policies.json` with:
-    -   Decentraleyes
-    -   I Still Don't Care About Cookies
-    -   uBlock Origin
-    -   Vimium
-
-Backups saved with timestamps.
+Requires `jq`. Safe to re-run — creates a fresh profile if none exists, runs arkenfox's `prefsCleaner` on existing ones. Bookmarks, passwords, and extensions are never touched. Everything overwritten is backed up with a timestamp.
 
 ## Notes
 
--   Don't run as root.
--   LibreWolf must be opened once first so it creates a real profile.
--   Safe to re-run on an existing profile — `user.js` and `policies.json` will be fully updated, and
-    arkenfox's `prefsCleaner` will remove any stale prefs left over from previous runs. Bookmarks,
-    passwords, extensions, and other profile data are never touched.
+- Do not run as root
+- `resistFingerprinting=false` is locked via `lockPref` so LibreWolf's own defaults cannot override it
