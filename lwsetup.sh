@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# librewolf-hardening.sh
+# lwsetup.sh
 # - Apply arkenfox user.js to the default LibreWolf profile
 # - Append LARBS overrides and extra tweaks
 # - Enforce privacy extensions via policies.json
